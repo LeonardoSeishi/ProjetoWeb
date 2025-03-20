@@ -1,0 +1,150 @@
+/* Reset básico para remover margens e paddings padrão */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Estilo global do corpo da página */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #1e1e1e; /* Fundo escuro */
+    color: #d4d4d4; /* Texto claro */
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Cabeçalho */
+header {
+    background-color: #252526;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 2px solid #007acc;
+}
+
+header h1 {
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+header nav ul {
+    list-style: none;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 10px;
+}
+
+header nav ul li a {
+    color: #d4d4d4;
+    text-decoration: none;
+}
+
+header nav ul li a:hover {
+    color: #007acc;
+}
+
+/* Conteúdo principal */
+main {
+    margin-top: 20px;
+}
+
+/* Área do editor de código */
+#editor {
+    background-color: #252526;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#editor h2 {
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+#editor textarea {
+    width: 100%;
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    border: 1px solid #007acc;
+    padding: 10px;
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    border-radius: 5px;
+    resize: vertical;
+}
+
+#editor .botoes {
+    margin-top: 10px;
+}
+
+#editor button {
+    background-color: #007acc;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+#editor button:hover {
+    background-color: #005f9e;
+}
+
+/* Área de saída */
+#saida {
+    background-color: #252526;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#saida h2 {
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+#saida pre {
+    background-color: #1e1e1e;
+    color: #d4d4d4;
+    padding: 10px;
+    border: 1px solid #007acc;
+    border-radius: 5px;
+    font-family: Consolas, monospace;
+    font-size: 16px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* Seções "Sobre" e "Como Usar" */
+#sobre, #como-usar {
+    background-color: #252526;
+    padding: 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#sobre h2, #como-usar h2 {
+    color: #007acc;
+    margin-bottom: 10px;
+}
+
+#como-usar ol {
+    padding-left: 20px;
+}
+
+/* Rodapé */
+footer {
+    background-color: #252526;
+    padding: 10px;
+    text-align: center;
+    border-top: 2px solid #007acc;
+    margin-top: 20px;
+}
+
+footer p {
+    color: #d4d4d4;
+}
