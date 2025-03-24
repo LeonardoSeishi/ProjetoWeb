@@ -1,12 +1,12 @@
 body{
     color: whitesmoke;
-    background-color: rgb(37, 58, 58);
+    background-color: #1D096E;
 
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .project-info-section{
-    background-color: rgb(49, 74, 74);
+    background-color: #515055;
     box-shadow: 1px 1px 20px 1px black;
     border: 1px solid whitesmoke;
     border-radius: 5px;
