@@ -1,62 +1,182 @@
-body{
-    color: whitesmoke;
-    margin: 0px;
-    padding: 0px;
-    background-color: #1D096E;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+/*  PALETA DE CORES = https://www.colourlovers.com/palette/15/tech_light */
+   :root {      
+    --primary: #4DBCE9;
+    --primary-dark: #26ADE4;    
+    --secondary: #FFFFFF;      
+    --secondary-dark : #dce7e9;
+    --border: #D1E751;         
+    --text: #000000;           
+    --text-secondary: #555555;
 }
 
-header, footer{
-    margin: 0px;
-    padding: 15px;
-    background-color: #515055;
+/* ESTILOS GLOBAIS */
+body {
+    color: var(--text);
+    margin: 0;
+    padding: 0;
+    background-color: var(--secondary);
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
 }
 
-footer{
-    margin: 0px!important;
-    padding: 0px!important;
+/* CABEÇALHO */
+header {
+    background-color: var(--primary-dark);
+    padding: 1rem;
+    text-align: center;
+    border-bottom: 3px solid var(--primary);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+/* BARRA DE NAVEGAÇÃO */
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 1rem;
+    background-color: var(--primary);
+}
+
+nav a {
+    color: var(--secondary);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--text); /* Muda para a cor de destaque ao passar o mouse */
+}
+
+/* LAYOUT PRINCIPAL */
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 200px);
+    padding: 1rem;
+    gap: 1.5rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.editor-container {
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0; /* Permite que o editor se ajuste corretamente */
+}
+
+.info-sidebar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 300px;
+}
+
+/* EDITOR DE CÓDIGO (AJUSTADO) */
+.code-section {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#csharp-code {
     width: 100%;
+    height: 400px; /* Altura fixa */
+    max-height: 60vh; /* Limite máximo */
+    background-color: var(--secondary);
+    color: var(--text);
+    outline: none; /* Remove o padrão  */
+    border: 2px solid var(--border);
+    border-radius: 4px;
+    transition: border 0.3s ease; /* Suaviza a transição */
+    padding: 1rem;
+    font-family: 'Consolas', monospace;
+    font-size: 14px;
+    resize: none; /* Remove a capacidade de redimensionar */
+    box-sizing: border-box; /* Garante que padding não aumente tamanho */
 }
 
-#page-content{
-    margin: 15px 0px;
+#csharp-code:focus {
+    border-color: var(--primary-dark); /* Muda a cor da borda ao focar */
+    box-shadow: 0 0 0 2px; /* Efeito mais moderno */
 }
 
-
-.shadow-10px{
-    box-shadow: 1px 1px 10px 1px black;
+#csharp-code:focus {
+    border-color: var(--primary); /* Muda a cor da borda ao focar */
+    box-shadow: 0 0 0 2px rgba(38, 173, 228, 0.3); /* Efeito mais moderno */
 }
 
-.rounded-5px{
-    border-radius: 5px;
+/* COMPONENTES COMUNS */
+.code-section, .output-section, .info-card {
+    background-color: var(--secondary-dark);
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 2px solid var(--border);
 }
 
-.project-info-section{
-    background-color: #515055;
-    border: 1px solid whitesmoke;
-    margin: auto;
-    margin-bottom: 10px;
-    padding: 20px;
-    max-width: 400px;
+.code-section h2, .output-section h2, .info-card h3 {
+    color: var(--primary-dark);
+    margin-top: 0;
+    margin-bottom: 1rem;
 }
 
-.project-info-section p, .project-info-section a {
-    text-align: justify;
-    max-width: inherit;
+/* ÁREA DE SAÍDA */
+#output-content {
+    background-color: var(--secondary);
+    color: var(--text);
+    padding: 1rem;
+    border-radius: 4px;
+    min-height: 100px;
+    font-family: 'Consolas', monospace;
+    overflow: auto;
+    border: 2px solid var(--border);
 }
 
-.footer-info-section{
-    border: 1px solid burlywood;
-    padding: 5px 10px;
-    margin: 15px;
-    display: inline-block;
+/* BOTÕES */
+.editor-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
-a{
-    color: burlywood;
+button {
+    background-color: var(--primary-dark);
+    color: var(--secondary);
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-a:visited
-{
-    color: grey;
+button:hover {
+    background-color: var(--primary);
+    color: var(--text);
+}
+
+/* RODAPÉ */
+footer {
+    background-color: var(--secondary-dark);
+    padding: 1.5rem;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    border-top: 2px solid var(--border);
+}
+
+.footer-card {
+    background-color: var(--secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    min-width: 200px;
+    border: 2px solid var(--border);
 }

@@ -1,102 +1,97 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-        <meta charset="UTf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/x-icon" href="./icon.webp">
-        <title>Grupo C#</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="./icon.webp">
+    <title>Editor Online C#</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <header>
+        <h1>Editor online para C#</h1>
+        <nav>
+            <a href="#editor">Editor</a> |
+            <a href="#members">Membros</a> |
+            <a href="#course">Curso</a> |
+            <a href="#description">Descrição</a> |
+            <a href="#resources">Recursos</a> |
+            <a href="#github">GitHub</a>
+        </nav>
+    </header>
 
-        <link rel="stylesheet" href="./style.css">
-    </head>
-    <body>
-        <header>
-            <h1>Editor online para C#</h1>
+    <div class="main-container">
+        <!-- Área principal do editor -->
+        <main class="editor-container">
+            <section id="editor" class="code-section">
+                <h2>Editor C#</h2>
+                <textarea id="csharp-code" spellcheck="false">using System;
 
-            <nav>
-                <a href="#members">Membros</a> |
-                <a href="#course">Curso</a> |
-                <a href="#description">Descricao</a> |
-                <a href="#resources">Recursos</a> |
-                <a href="#github">Github</a>
-            </nav>
-        </header>
+class Program
+{
+    static void Main()
+    {
+        Console.WriteLine("Olá Mundo!");
+    }
+}</textarea>
+                <div class="editor-buttons">
+                    <button id="run-btn">Executar</button>
+                    <button id="clear-btn">Limpar</button>
+                </div>
+            </section>
 
-        <div id="page-content">
-            <section id="members" class="project-info-section shadow-10px rounded-5px">
-                <aside>
-                    <h4>Integrantes</h4>
-                    <ul>
-                        <li>Anderson Simioni</li>
-                        <li>Leonardo Seishi</li>
-                    </ul>
-                </aside>
+            <section id="output" class="output-section">
+                <h2>Saída</h2>
+                <pre id="output-content"></pre>
             </section>
-    
-            <section id="course" class="project-info-section shadow-10px rounded-5px">
-                <aside>
-                    <h4>Curso com link para a página do curso</h4>
-                    <p>Curso de Ciência da Computação - UFSC</p>
-                    <a href="https://presencial.moodle.ufsc.br/course/view.php?id=22229&section=0">Clique aqui</a>
-                </aside>
+        </main>
+
+        <!-- Sidebar com informações -->
+        <aside class="info-sidebar">
+            <section id="members" class="info-card">
+                <h3>Integrantes</h3>
+                <ul>
+                    <li>Anderson Simioni</li>
+                    <li>Leonardo Seishi</li>
+                </ul>
             </section>
-    
-            <section id="description" class="project-info-section shadow-10px rounded-5px">
-                <aside>
-                    <h4>Descrição do projeto</h4>
-                    <p>O projeto sera um editor online para código c#,
-                        o usuário poderá editar seu código no front-end e
-                        envia-lo para o back-end para executar usando tecnologias
-                        com runtime compiler, o back-end retornara o resultado do
-                        programa então mostrando no campo log.
-                    </p>
-                </aside>
+
+            <section id="course" class="info-card">
+                <h3>Curso</h3>
+                <p>Ciência da Computação - UFSC</p>
+                <a href="https://presencial.moodle.ufsc.br/course/view.php?id=22229&section=0">Link do Curso</a>
             </section>
-    
-            <section id="resources" class="project-info-section shadow-10px rounded-5px">
-                <aside>
-                    <h4>Recursos usados no projeto</h4>
-                    <p>Um servidor Linux de baixo desempenho com 1 core e 1gb de ram</p>
-                </aside>
+
+            <section id="description" class="info-card">
+                <h3>Descrição</h3>
+                <p>Editor online para código C# com execução remota via runtime compiler.</p>
             </section>
-    
-            <section id="github" class="project-info-section shadow-10px rounded-5px">
-                <aside>
-                    <h4>Link para o github</h4>
-                    <a href="https://github.com/LeonardoSeishi/ProjetoWeb">Clique aqui</a>
-                </aside>
+
+            <section id="resources" class="info-card">
+                <h3>Recursos</h3>
+                <p>Servidor Linux com 1 core e 1GB RAM</p>
             </section>
+
+            <section id="github" class="info-card">
+                <h3>GitHub</h3>
+                <a href="https://github.com/LeonardoSeishi/ProjetoWeb">ProjetoWeb</a>
+            </section>
+        </aside>
+    </div>
+
+    <footer>
+        <address class="footer-card">
+            <h4>Contatos</h4>
+            <p><a href="mailto:anderson.simioni22@gmail.com">anderson.simioni22@gmail.com</a></p>
+            <p><a href="mailto:leonardosyamazaki@gmail.com">leonardosyamazaki@gmail.com</a></p>
+        </address>
+
+        <div class="footer-card">
+            <h4>Disciplina</h4>
+            <p>INE5646 - Programação para Web</p>
         </div>
+    </footer>
 
-        <footer>
-            <section class="footer-info-section shadow-10px rounded-5px">
-                <p><b>Contatos</b></p>
-                <p><a href="mailto:anderson.simioni22@gmail.com">anderson.simioni22@gmail.com</a></p>
-                <p><a href="mailto:leonardosyamazaki@gmail.com">leonardosyamazaki@gmail.com</a></p>
-            </section>
-
-            <section class="footer-info-section shadow-10px rounded-5px">
-                <p><b>Sobre o projeto</b></p>
-                <p>Editor Online para C#</p>
-            </section>
-
-            <section class="footer-info-section shadow-10px rounded-5px">
-                <p><b>Objetivos</b></p>
-                <p>Editar, compilar e executar códigos C# remotamente</p>
-            </section>
-
-            <section class="footer-info-section shadow-10px rounded-5px">
-                <p><b>Disciplina</b></p>
-                <p>Programação Web</p>
-            </section>
-            
-            <section class="footer-info-section shadow-10px rounded-5px">
-                <p><b>Links do projeto em repositórios</b></p>
-                <p>
-                    <a href="https://github.com/LeonardoSeishi/ProjetoWeb">Github</a>
-                </p>
-            </section>
-
-        </footer>
-        
-    </body>
+    <script src="script.js"></script>
+</body>
 </html>
