@@ -43,38 +43,6 @@ public class HomeController : Controller
             var result = CSharpScript.RunAsync(code, ScriptOptions.Default).GetAwaiter().GetResult();
             var ret = result.ReturnValue;
             return Ok(ret);
-            
-            /* var tree = CSharpSyntaxTree.ParseText(code);
-            var compilation = CSharpCompilation.Create("Code")
-                .WithOptions(new CSharpCompilationOptions(OutputKind.ConsoleApplication))
-                .AddReferences(
-                    //MetadataReference.CreateFromFile(typeof(object).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(Decimal).Assembly.Location),
-                    //MetadataReference.CreateFromFile(typeof(Object).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(Console).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(System.String).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(System.Linq.Enumerable).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(System.AssemblyLoadEventArgs).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(System.Runtime.AssemblyTargetedPatchBandAttribute).Assembly.Location),
-                    MetadataReference.CreateFromFile(typeof(System.Runtime.ExceptionServices.ExceptionDispatchInfo).Assembly.Location)
-                )
-                .AddSyntaxTrees(tree);
-
-            var outputStrWriter = new StringWriter();
-            using var memStr = new MemoryStream();
-            var emitResult = compilation.Emit(memStr);
-
-            if (!emitResult.Success) return BadRequest(string.Join("\n", emitResult.Diagnostics));
-            
-            Console.SetOut(outputStrWriter);
-
-            memStr.Seek(0, SeekOrigin.Begin);
-            var assembly = Assembly.Load(memStr.ToArray());
-            var tipo = assembly.GetTypes().FirstOrDefault(t => t.Name == "Program");
-            var main = tipo?.GetMethod("Main", BindingFlags.Static | BindingFlags.Public);
-            main?.Invoke(null, null);
-
-            return Ok(outputStrWriter); */
         }
         catch (System.Exception ex)
         {
