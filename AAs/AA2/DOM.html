@@ -32,7 +32,7 @@
         }
 
         async function main(){
-            var request = await fetch('/AAs/AA2/index.html');
+            var request = await fetch('/index.html');
             var html = await request.text();
             var parser = new DOMParser();
             //console.log(html);

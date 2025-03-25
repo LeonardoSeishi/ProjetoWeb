@@ -1,0 +1,103 @@
+﻿<header>
+        <h1>Editor online para C#</h1>
+        <nav>
+            <a href="#editor">Editor</a> |
+            <a href="#members">Membros</a> |
+            <a href="#course">Curso</a> |
+            <a href="#description">Descrição</a> |
+            <a href="#resources">Recursos</a> |
+            <a href="#github">GitHub</a>
+        </nav>
+    </header>
+
+    <div class="main-container">
+        <!-- Área principal do editor -->
+        <main class="editor-container">
+            <section id="editor" class="code-section">
+                <h2>Editor C#</h2>
+                <textarea id="csharp-code" spellcheck="false">public static string Example()
+{
+    int steps = 1000;
+    double pi = 0;
+
+    for (int i = 0; i < steps; i++)
+    {
+        double term = 1.0 / (2 * i + 1);
+        if (i % 2 == 0) pi += term;
+        else pi -= term;
+    }
+
+    pi *= 4;
+    return pi.ToString();
+}
+
+return Example();</textarea>
+                <div class="editor-buttons">
+                    <button id="run-btn">Executar</button>
+                    <button id="clear-btn">Limpar</button>
+                </div>
+            </section>
+
+            <section id="output" class="output-section">
+                <h2>Saída</h2>
+                <pre id="output-content"></pre>
+            </section>
+        </main>
+
+        <!-- Sidebar com informações -->
+        <aside class="info-sidebar">
+            <section id="members" class="info-card">
+                <h3>Integrantes</h3>
+                <ul>
+                    <li>Anderson Simioni</li>
+                    <li>Leonardo Seishi</li>
+                </ul>
+            </section>
+
+            <section id="course" class="info-card">
+                <h3>Curso</h3>
+                <p>Ciência da Computação - UFSC</p>
+                <a href="https://presencial.moodle.ufsc.br/course/view.php?id=22229&section=0">Link do Curso</a>
+            </section>
+
+            <section id="description" class="info-card">
+                <h3>Descrição</h3>
+                <p>Editor online para código C# com execução remota via runtime compiler.</p>
+            </section>
+
+            <section id="resources" class="info-card">
+                <h3>Recursos</h3>
+                <p>Servidor Linux com 1 core e 1GB RAM</p>
+            </section>
+
+            <section id="github" class="info-card">
+                <h3>GitHub</h3>
+                <a href="https://github.com/LeonardoSeishi/ProjetoWeb">ProjetoWeb</a>
+            </section>
+        </aside>
+    </div>
+
+    <footer>
+        <address class="footer-card">
+            <h4>Contatos</h4>
+            <p><a href="mailto:anderson.simioni22@gmail.com">anderson.simioni22@gmail.com</a></p>
+            <p><a href="mailto:leonardosyamazaki@gmail.com">leonardosyamazaki@gmail.com</a></p>
+        </address>
+
+        <div class="footer-card">
+            <h4>Disciplina</h4>
+            <p>INE5646 - Programação para Web</p>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+
+<!-- Link para o arquivo JavaScript -->
+@section Scripts{
+    <script src="/js/script.js"></script>
+}

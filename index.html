@@ -23,7 +23,25 @@
         <!-- Área do editor de código -->
         <section id="editor">
             <h2>Editor de Código</h2>
-            <textarea id="codigo" placeholder="Digite seu código C# aqui..." rows="20"></textarea>
+            <textarea id="codigo" placeholder="Digite seu código C# aqui..." rows="20">
+                public static string Example()
+                {
+                    int steps = 1000;
+                    double pi = 0;
+
+                    for (int i = 0; i < steps; i++)
+                    {
+                        double term = 1.0 / (2 * i + 1);
+                        if (i % 2 == 0) pi += term;
+                        else pi -= term;
+                    }
+
+                    pi *= 4;
+                    return pi.ToString();
+                }
+
+                return Example();
+            </textarea>
             <div class="botoes">
                 <button id="executar">Executar</button>
                 <button id="limpar">Limpar</button>
