@@ -14,7 +14,7 @@
             let childNodes = node.childNodes;
             let newTree = document.createElement("ul");
             let caption = document.createElement("caption");
-            caption.innerHTML = `<caption>${node.nodeName}<caption>`;
+            caption.textContent = node.nodeName;
             newTree.append(caption);
 
             if(childNodes == undefined) return newTree;
