@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="./icon.webp">
+    <title>Index DOM Skeleton</title>
+</head>
+<body>
+    <div id="skeleton"></div>
+    <script>
+
+        async function getTree(node){
+            let childNodes = node.childNodes;
+            let newTree = document.createElement("ul");
+            let caption = document.createElement("caption");
+            caption.innerHTML = `<caption>${node.nodeName}<caption>`;
+            newTree.append(caption);
+
+            if(childNodes == undefined) return newTree;
+
+            for(let i = 0; i < childNodes.length; i++){
+                let newEl = document.createElement("ul");
+
+                if(childNodes[i].childNodes.length > 0) newEl = await getTree(childNodes[i]);
+                else newEl.textContent = childNodes[i].nodeName;
+
+                if(!["#text", "#comment"].includes(newEl.textContent)) newTree.append(newEl);
+            }
+
+            return newTree
+        }
+
+        async function main(){
+            var request = await fetch('/AAs/AA2/index.html');
+            var html = await request.text();
+            var parser = new DOMParser();
+            //console.log(html);
+            var parsed = parser.parseFromString(html, "text/html");
+            var body = parsed.body;
+            console.log(body, body.childNodes.length);
+
+            document.getElementById("skeleton").append(await getTree(body));
+        }
+        
+        setTimeout(async ()=>{ await main(); }, 1000);
+    </script>
+</body>
+</html>
