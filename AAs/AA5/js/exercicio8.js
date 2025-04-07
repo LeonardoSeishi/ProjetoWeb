@@ -1,10 +1,26 @@
 function obterRegiaoFiscalAtravesDoCPFInformado(cpfInformado) {
     //edite esta função!
-    let regiaoFiscal = undefined
-    console.log(cpfInformado)
+    console.log(cpfInformado);
+
+    let regions = [
+        "DF, GO, MT, MS e TO",
+        "AC, AP, AM, PA, RO e RR",
+        "CE, MA e PI",
+        "AL, PB, PE e RN",
+        "BA e SE",
+        "MG",
+        "ES e RJ",
+        "SP",
+        "PR e SC",
+        "RS"
+    ]
+
+    let regionDigit = parseInt(cpfInformado[cpfInformado.length-3]);
+    if(regionDigit==0) regionDigit=9; else regionDigit--;
+    console.log("Region Digit:", regionDigit);
     
     //----------------------------
-    return regiaoFiscal
+    return regions[regionDigit];
 }
 
 
