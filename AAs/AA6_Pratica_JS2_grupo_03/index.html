@@ -17,6 +17,7 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 1
+                    document.getElementById("pEx1").textContent = "Olá";
                 </script>
 
             <h3>Exercício 2</h3>
@@ -36,6 +37,15 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 3
+                    var elementosEx3 = document.getElementsByClassName("ex3");
+
+                    // Verifica se existem pelo menos 3 elementos com essa classe
+                    if (elementosEx3.length >= 3) {
+                        // Modifica o texto do terceiro elemento
+                        elementosEx3[2].textContent = "classe ex3";
+                    } else {
+                        console.log("Não há elementos suficientes com a classe 'ex3'");
+                    }
                 </script>
 
 
@@ -57,6 +67,8 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 5
+                    let campo = document.getElementById("myText");
+                    campo.value = "INE5646";
                 </script>
 
 
@@ -80,6 +92,8 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 7
+                    var elemento = document.getElementById("demo40");
+                    elemento.style.fontSize = "40px";
                 </script>
 
             <h3>Exercício 8</h3>
@@ -100,6 +114,9 @@
 
                 <script>
                     //adicione aqui o script para resolução do Exercício 9
+                    function tratadorDeClique() {alert('Você clicou no botão!');}
+                    const botao = document.getElementById('botao1');
+                    botao.addEventListener('click', tratadorDeClique);
                 </script>
 
 
@@ -131,6 +148,9 @@
                 
                 <script>
                     //adicione aqui o script para resolução do Exercício 11
+                    const numeros = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+                    const numerosPares = numeros.filter(numero => numero % 2 === 0);
+                    document.getElementById("saidaFilter").textContent = numerosPares.join(", ");
                 </script>
 
             <h3>Exercício 12</h3>
