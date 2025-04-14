@@ -26,7 +26,9 @@
                 <p class="ex3">Texto</p>
                 
                 <script>
-                    document.getElementsByTagName("p")
+                    const ps = document.getElementsByTagName("p")
+                    const ex3P = ps[3];
+                    ex3P.textContent = "Mundo";
                 //adicione aqui o script para resolução do Exercício 2
                 </script>
             
@@ -56,6 +58,7 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 4
+                document.getElementById('image').setAttribute("src", "./img/flowers_and_sum.jpg");
                 </script>
 
             
@@ -81,6 +84,7 @@
                 
                 <script>
                 //adicione aqui o script para resolução do Exercício 6
+                document.getElementById('demo').style.color = "rgb(255,0,0)";
                 </script>
 
 
@@ -104,6 +108,7 @@
 
                 <script>
                 //adicione aqui o script para resolução do Exercício 8
+                document.getElementById('demo8').style.display = "none";
                 </script>
 
             <h3>Exercício 9</h3>
@@ -134,6 +139,7 @@
 
                 <script>
                     //adicione aqui o script para resolução do Exercício 10
+                    document.getElementById('saidaMap').textContent = ps[13].textContent.split(',').map(x => parseInt(x)**2).join(",");
                 </script>
 
             <h3>Exercício 11</h3>
@@ -164,7 +170,8 @@
                 <p id="saidaReduce">Resultado do reduce aqui!</p>
 
                 <script>
-                    //adicione aqui o script para resolução do Exercício 12 
+                    //adicione aqui o script para resolução do Exercício 12  ps[20]
+                    document.getElementById('saidaReduce').textContent = ps[20].textContent.split(',').map(x => parseInt(x)).reduce((x,y)=>x+y);
                 </script>
 
 </body>
