@@ -1,55 +1,240 @@
+// Telas e formulários principais
 const signForm = document.getElementById("login-body");
 const signupForm = document.getElementById("nova-conta");
 const homeForm = document.getElementById("divHome");
 
+// Elementos do formulário de login
 const signBtn = document.getElementById("botaoLogin");
 const signEmailTxtBox = document.getElementById("login-email");
 const signPasswordTxtBox = document.getElementById("login-password");
 const signKeepConnected = document.getElementById("manterConectado");
 const signPasswordHideImg = document.getElementById("olho");
 
-function isEmailValid(email)
-{
+// Elementos do formulário de cadastro
+const signupNome = document.getElementById("signup-nome");
+const signupSobrenome = document.getElementById("signup-sobrenome");
+const signupCPF = document.querySelector("input[onblur^='validarCPF']");
+const signupEmail = document.querySelector("input[onblur^='validaEmail']");
+const signupSenha = document.getElementById("signup-senha");
+const signupRepitaSenha = document.getElementById("signup-repita-senha");
+const areaBotaoConta = document.getElementById("areaBotaoConta");
+const criarContaBtn = areaBotaoConta.querySelector("input[type='button']");
+
+// Elementos de status dos campos do cadastro
+const statusNome = document.getElementById('statusNome');
+const statusSobrenome = document.getElementById('statusSobrenome');
+const statusCPF = document.getElementById('statusCPF');
+const statusEmail = document.getElementById('statusEmail');
+const statusSenha = document.getElementById('statusSenha');
+const statusRepitaSenha = document.getElementById('statusRepitaSenha');
+
+const iconeOk = '<span style="color:green;vertical-align:middle;">&#10004;</span>';
+const iconeErro = '<span style="color:red;vertical-align:middle;">&#10060;</span>';
+
+// ====== Lógica de Login ======
+
+function isEmailValid(email) {
     return String(email).split("@").length == 2;
 }
 
-function updateSignHidePasswordEye()
-{
-    const type = signPasswordTxtBox.getAttribute("type");
-    signPasswordHideImg.setAttribute("src", type=="password"? 
-        "https://cdn0.iconfinder.com/data/icons/ui-icons-pack/100/ui-icon-pack-14-512.png" :
-        "https://cdn0.iconfinder.com/data/icons/ui-icons-pack/100/ui-icon-pack-15-512.png"
-    );
+function updateLoginForm() {
+    if (signEmailTxtBox.value == "" || signPasswordTxtBox.value == "")
+        signBtn.style.display = "none";
+    else
+        signBtn.style.display = "";
 }
 
-function toggleSignPasswordVisibility(e)
-{
-    const target = e.target;
-    const type = signPasswordTxtBox.getAttribute("type");
-    signPasswordTxtBox.setAttribute("type", type=="password"?"text":"password");
-    updateSignHidePasswordEye();
-}
-
-function clearInputs(localBaseSelector)
-{
+function clearInputs(localBaseSelector) {
     const types = "text password checkbox";
-    const multiQuery = types.split(" ").map(x=>`${localBaseSelector} input[type=${x}]`).join(",");
+    const multiQuery = types.split(" ").map(x => `${localBaseSelector} input[type=${x}]`).join(",");
     const inputs = document.querySelectorAll(multiQuery);
-    for (let i = 0; i < inputs.length; i++){
+    for (let i = 0; i < inputs.length; i++) {
         inputs[i].value = "";
         inputs[i].checked = false;
     }
 }
 
-function mostrarApenasHome()
+function validateSign() {
+    return (isEmailValid(signEmailTxtBox.value) && signPasswordTxtBox.value != "");
+}
+
+function sign() {
+    let valid = validateSign();
+    if (!valid) return;
+
+    alert("Sucesso ao logar!");
+    mostrarApenasHome();
+}
+
+
+class CPF {
+    constructor(valor) {
+        this.valor = valor.replace(/\D/g, '');
+        if (this.valor.length !== 11) {
+            throw new Error("CPF deve ter 11 dígitos.");
+        }
+        if (/^(\d)\1*$/.test(this.valor)) {
+            throw new Error("CPF inválido: todos os dígitos iguais.");
+        }
+        // Validação do primeiro dígito verificador
+        let soma = 0;
+        for (let i = 0; i < 9; i++) soma += parseInt(this.valor.charAt(i)) * (10 - i);
+        let resto = (soma * 10) % 11;
+        let dig1 = resto === 10 ? 0 : resto;
+        if (dig1 !== parseInt(this.valor.charAt(9))) throw new Error("CPF inválido: primeiro dígito verificador incorreto.");
+        // Validação do segundo dígito verificador
+        soma = 0;
+        for (let i = 0; i < 10; i++) soma += parseInt(this.valor.charAt(i)) * (11 - i);
+        resto = (soma * 10) % 11;
+        let dig2 = resto === 10 ? 0 : resto;
+        if (dig2 !== parseInt(this.valor.charAt(10))) throw new Error("CPF inválido: segundo dígito verificador incorreto.");
+    }
+}
+
+class Conta {
+    constructor(nome, sobrenome, cpf, email, senha) {
+        this.nome = nome;
+        this.sobrenome = sobrenome;
+        this.cpf = cpf;       // objeto CPF já validado
+        this.email = email;
+        this.senha = senha;
+    }
+}
+
+// ====== Funções de Validação dos Campos de Cadastro ======
+
+function setBotaoConta(habilitado) {
+    criarContaBtn.disabled = !habilitado;
+    criarContaBtn.style.background = habilitado ? "#369" : "#888";
+    criarContaBtn.style.cursor = habilitado ? "pointer" : "not-allowed";
+}
+
+function validaTextoEmBranco(campo, statusEl) {
+    const el = document.getElementById(statusEl);
+    let valor = campo.value.trim();
+    if (valor === "") {
+        el.innerHTML = `${iconeErro} Este campo não pode ficar vazio.`;
+        el.style.color = "red";
+    } else {
+        el.innerHTML = `${iconeOk} Campo validado com sucesso.`;
+        el.style.color = "green";
+    }
+    avaliarFormulario();
+}
+
+function validaEmail(campo, statusEl) {
+    const el = document.getElementById(statusEl);
+    let valor = campo.value.trim();
+    let arrobas = valor.split("@").length - 1;
+    if (valor === "") {
+        el.innerHTML = `${iconeErro} E-mail não pode ficar vazio.`;
+        el.style.color = "red";
+    } else if (arrobas !== 1) {
+        el.innerHTML = `${iconeErro} E-mail deve conter apenas um @.`;
+        el.style.color = "red";
+    } else {
+        el.innerHTML = `${iconeOk} E-mail validado com sucesso.`;
+        el.style.color = "green";
+    }
+    avaliarFormulario();
+}
+
+function validarCPF(campo, statusEl) {
+    const el = document.getElementById(statusEl);
+
+    try {
+        let cpf = new CPF(campo.value);
+        el.innerHTML = `${iconeOk} CPF válido.`;
+        el.style.color = "green";
+    } catch (e) {
+        el.innerHTML = `${iconeErro} ${e.message}`;
+        el.style.color = "red";
+    }
+    avaliarFormulario();
+}
+
+function validaRepitaSenha() {
+    let senha = signupSenha.value;
+    let repita = signupRepitaSenha.value;
+
+    // Validação de senha
+    if (!senha) {
+        statusSenha.innerHTML = `${iconeErro} Senha não pode ser vazia.`;
+        statusSenha.style.color = "red";
+    } else {
+        let nivel = nivelSenha(senha);
+        statusSenha.innerHTML = `${iconeOk} Senha válida. Segurança: <b>${nivel}</b>`;
+        statusSenha.style.color = "green";
+    }
+
+    // Validação repetição
+    if (!repita) {
+        statusRepitaSenha.innerHTML = `${iconeErro} Repita sua senha.`;
+        statusRepitaSenha.style.color = "red";
+    } else if (repita !== senha) {
+        statusRepitaSenha.innerHTML = `${iconeErro} As senhas não coincidem.`;
+        statusRepitaSenha.style.color = "red";
+    } else {
+        statusRepitaSenha.innerHTML = `${iconeOk} Senha repetida corretamente.`;
+        statusRepitaSenha.style.color = "green";
+    }
+
+    avaliarFormulario();
+}
+
+function nivelSenha(senha) {
+    let nivel = 0;
+    if (senha.length >= 8) nivel++; //0
+    if (/[A-Z]/.test(senha)) nivel++; //1
+    if (/[a-z]/.test(senha)) nivel++; //2
+    if (/[0-9]/.test(senha)) nivel++; //3
+    if (/[^A-Za-z0-9]/.test(senha)) nivel++; //4
+
+    const niveis = ["Muito fraca", "Fraca", "Media", "Forte", "Muito forte"];
+    return niveis[Math.max(0, nivel-1)];
+}
+
+function avaliarFormulario() {
+    let validos = true;
+
+    if (statusCPF.style.color !== 'green') validos = false;
+    if (!signupNome.value.trim() || statusNome.style.color !== 'green') validos = false;
+    if (!signupEmail.value.trim() || statusEmail.style.color !== 'green') validos = false;
+    if (!signupSobrenome.value.trim() || statusSobrenome.style.color !== 'green') validos = false;
+
+    if (!signupSenha.value || !signupRepitaSenha.value) validos = false;
+    if (statusSenha.style.color !== 'green' || statusRepitaSenha.style.color !== 'green') validos = false;
+
+    setBotaoConta(validos);
+}
+
+function signup()
 {
+    const senha = signupSenha.value;
+    const nome = signupNome.value.trim();
+    const email = signupEmail.value.trim();
+    const sobrenome = signupSobrenome.value.trim();
+    
+    let cpf;
+    try { cpf = new CPF(signupCPF.value); } 
+    catch (e) 
+    {
+        alert("Erro inesperado ao validar CPF. Por favor, revise os campos.");
+        return;
+    }
+
+    const conta = new Conta(nome, sobrenome, cpf, email, senha);
+    console.log(conta);
+    alert("Conta criada com sucesso! Veja o console para detalhes do objeto.");
+}
+
+function mostrarApenasHome() {
     signForm.style.display = "none";
     signupForm.style.display = "none";
     homeForm.style.display = "";
 }
 
-function mostrarApenasLogin()
-{
+function mostrarApenasLogin() {
     signForm.style.display = "";
     signupForm.style.display = "none";
     homeForm.style.display = "none";
@@ -57,10 +242,12 @@ function mostrarApenasLogin()
     clearInputs("#login-body");
 }
 
-function mostrarApenasConta()
-{
+function mostrarApenasConta() {
     signForm.style.display = "none";
     signupForm.style.display = "";
     homeForm.style.display = "none";
     clearInputs("#nova-conta");
+    setBotaoConta(false);
 }
+
+mostrarApenasHome();

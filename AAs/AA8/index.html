@@ -163,18 +163,18 @@
         <div id="login-body">
           <h1>Entrar</h1>
           <form>
-              <label>E-mail:</label><input id="login-email" type="text">
+              <label>E-mail:</label><input id="login-email" type="text" onchange="updateLoginForm()">
               <label>Senha:</label>
               <div class="passwordSpy">
-                  <input id="login-password" type="password">
+                  <input id="login-password" type="password" onchange="updateLoginForm()">
                   <img id="olho" class="olho" src="https://cdn0.iconfinder.com/data/icons/ui-icons-pack/100/ui-icon-pack-14-512.png"
-                  onmousedown="toggleSignPasswordVisibility(event)">
+                  onmousedown="togglePasswordVisibility('login-password', 'olho')">
               </div>
               
               <div id="manterConectado"><input type="checkbox"> Manter conectado</div>
 
               
-              <button id="botaoLogin">Entrar<i class="menuIcon material-icons">login</i></button>
+              <button id="botaoLogin" onclick="sigin()">Entrar<i class="menuIcon material-icons">login</i></button>
           </form>
       </div>
 
@@ -187,36 +187,36 @@
         <form>
         
           <label>Nome:</label>
-          <input type="text" onblur="validaTextoEmBranco(this, 'statusNome', 'Nome')">
+          <input id="signup-nome" type="text" onblur="validaTextoEmBranco(this, 'statusNome', 'signup-nome')">
           <p id="statusNome"></p>
           
           
           <label>Sobrenome:</label>
-          <input type="text" onblur="validaTextoEmBranco(this, 'statusSobrenome', 'Sobrenome')">
+          <input id="signup-sobrenome" type="text" onblur="validaTextoEmBranco(this, 'statusSobrenome', 'signup-sobrenome')">
           <p id="statusSobrenome"></p>
           
           
           <label>CPF:</label>
-          <input type="text" onblur="validarCPF(this)">
+          <input type="text" onblur="validarCPF(this, 'statusCPF')">
           <p id="statusCPF"></p>
           
           
           <label>E-mail:</label>
-          <input type="text">
+          <input type="text" onblur="validaEmail(this, 'statusEmail')">
           <p id="statusEmail"></p>
           
           
           <label>Senha:</label>
-          <input type="password">
+          <input id="signup-senha" type="password" onblur="validaRepitaSenha(this)">
           <p id="statusSenha"></p>
           
           
           <label>Repita sua senha:</label>
-          <input type="password">
+          <input id="signup-repita-senha" type="password" onblur="validaRepitaSenha(this, 'signup-senha')">
           <p id="statusRepitaSenha"></p>
           
           <div id="areaBotaoConta">
-            <input type="button" value="Criar conta" style="min-width: 100px">
+            <input type="button" value="Criar conta" style="min-width: 100px" onclick="signup()">
           </div>
           
           
