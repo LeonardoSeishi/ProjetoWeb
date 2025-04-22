@@ -68,26 +68,23 @@ function sign() {
 
 
 class CPF {
-    constructor(valor) {
-        this.valor = valor.replace(/\D/g, '');
-        if (this.valor.length !== 11) {
-            throw new Error("CPF deve ter 11 dígitos.");
-        }
-        if (/^(\d)\1*$/.test(this.valor)) {
-            throw new Error("CPF inválido: todos os dígitos iguais.");
-        }
+    constructor(value) {
+        this.value = value.replace(/\D/g, '');
+        if (this.value.length !== 11) throw new Error("CPF deve ter 11 dígitos.");
+        if (/^(\d)\1*$/.test(this.value)) throw new Error("CPF inválido: todos os dígitos iguais.");
+
         // Validação do primeiro dígito verificador
-        let soma = 0;
-        for (let i = 0; i < 9; i++) soma += parseInt(this.valor.charAt(i)) * (10 - i);
-        let resto = (soma * 10) % 11;
-        let dig1 = resto === 10 ? 0 : resto;
-        if (dig1 !== parseInt(this.valor.charAt(9))) throw new Error("CPF inválido: primeiro dígito verificador incorreto.");
+        let sumAux = 0;
+        for (let i = 0; i < 9; i++) sumAux += parseInt(this.value.charAt(i)) * (10 - i);
+        let restAux = (sumAux * 10) % 11;
+        let dig1 = restAux === 10 ? 0 : restAux;
+        if (dig1 !== parseInt(this.value.charAt(9))) throw new Error("CPF inválido: primeiro dígito verificador incorreto.");
         // Validação do segundo dígito verificador
-        soma = 0;
-        for (let i = 0; i < 10; i++) soma += parseInt(this.valor.charAt(i)) * (11 - i);
-        resto = (soma * 10) % 11;
-        let dig2 = resto === 10 ? 0 : resto;
-        if (dig2 !== parseInt(this.valor.charAt(10))) throw new Error("CPF inválido: segundo dígito verificador incorreto.");
+        sumAux = 0;
+        for (let i = 0; i < 10; i++) sumAux += parseInt(this.value.charAt(i)) * (11 - i);
+        restAux = (sumAux * 10) % 11;
+        let d2 = restAux === 10 ? 0 : restAux;
+        if (d2 !== parseInt(this.value.charAt(10))) throw new Error("CPF inválido: segundo dígito verificador incorreto.");
     }
 }
 
