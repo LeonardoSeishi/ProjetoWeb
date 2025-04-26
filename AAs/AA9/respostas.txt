@@ -1,0 +1,131 @@
+Exercicio 2
+
+Saída esperada no console (na ordem):
+1. Iniciei
+2. Estou após o setTimeout - o programa continua executando
+[após ~5 segundos]
+Estou na função de callback (executada após 5 segundos)
+
+Exercicio 3
+
+Olá
+Teste - versão original  // Aparece IMEDIATAMENTE (erro)
+Bye
+
+Exercicio 4
+
+Olá
+Bye
+Teste - versão corrigida // Aparece após 2 segundos (correto)
+
+Exercicio 5
+
+Análise:
+Ambas as versões estão corretas e produzem o mesmo resultado:
+"Olá" é exibido imediatamente
+"Tchau" é exibido após ~2 segundos
+
+Isso acontece porque:
+O console.log("Olá") é síncrono e executa imediatamente
+O setTimeout() é assíncrono e não bloqueia a execução
+A ordem do setTimeout() e console.log() não importa nesse caso
+O importante é que o "Tchau" está dentro do setTimeout com 2000ms
+
+
+Os dois códigos funcionam igualmente bem para o requisito proposto.
+
+
+Exercicio 6
+
+SAÍDA ESPERADA NO CONSOLE (ORDEM CRONOLÓGICA):
+
+1. Criando a Promise (ela começa a contar o tempo agora)
+2. Iniciando o loop de attaches then()
+2.1 Loop de attaches concluído (mas a Promise ainda não resolveu)
+[1 segundo depois...]
+3. Promise resolvida após 1 segundo
+4. Handler 0 executado
+4. Handler 1 executado
+4. Handler 2 executado
+4. Handler 3 executado
+4. Handler 4 executado
+4. Handler 5 executado
+4. Handler 6 executado
+4. Handler 7 executado
+4. Handler 8 executado
+4. Handler 9 executado
+
+EXPLICAÇÃO:
+A Promise é criada e o setTimeout começa a contar
+O loop adiciona 10 handlers .then() à Promise (que ainda está pendente)
+Após 1 segundo, a Promise é resolvida
+Todos os handlers são executados em sequência, imediatamente após a resolução
+
+OBSERVAÇÃO IMPORTANTE:
+Todos os handlers são executados com o valor final de i (10), 
+porque o loop já terminou quando a Promise é resolvida.
+
+
+Exercicio 7
+
+Saída após 1 segundo:
+0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+
+No exercício 6 (com var), todos os handlers veriam o valor final de i (10)
+Aqui (com let), cada handler vê o valor de i da iteração específica
+
+Exercicio 8
+
+SAÍDA ESPERADA (COM INTERVALOS DE 1 SEGUNDO):
+
+Iniciando cadeia de Promises...
+[0] Criando nova Promise...
+[0] Promise resolvida
+[1] Handler executado
+[1] Chamando próxima Promise...
+[1] Criando nova Promise...
+[1] Promise resolvida
+[2] Handler executado
+[2] Chamando próxima Promise...
+...
+[9] Criando nova Promise...
+[9] Promise resolvida
+[10] Handler executado
+Todas as Promises foram resolvidas!
+
+EXPLICAÇÃO:
+
+A função p() cria uma Promise que resolve após 1 segundo
+Quando resolvida, incrementa o contador i
+Se i < max, chama p() recursivamente
+Cada nova Promise só é criada após a anterior resolver
+O fluxo forma uma cadeia sequencial de Promises
+O último then() é chamado quando toda a cadeia termina
+
+Exercicio 9
+
+=== Versão Refatorada com Async/Await ===
+0 (após 1s)
+1 (após mais 1s)
+...
+9 (após 10s no total)
+Finalizado!
+
+PRINCIPAIS MELHORIAS DA VERSÃO COM ASYNC/AWAIT:
+
+Código mais linear e fácil de entender
+Controle de fluxo mais explícito
+Eliminação do "callback hell"
+Uso de loop while convencional em vez de recursão
+Melhor tratamento de erros (com try/catch)
+
+
