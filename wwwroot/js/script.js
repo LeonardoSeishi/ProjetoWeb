@@ -10,7 +10,7 @@
         btnRun.disabled = true;
         btnClear.disabled = true;
 
-        let code = txtCode.textContent;
+        let code = txtCode.value;
         let request = await fetch('/RunCode', 
             {   
                 method: "POST",

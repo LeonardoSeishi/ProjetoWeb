@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css">
+    <!-- Material Icon CDN -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Prática JavaScript</title>
+</head>
+<body>
+
+    <nav>
+          <div>
+            <button class="dropbtn" onclick="location.replace('index.html')">
+              <i class="menuIcon material-icons">home</i>
+          </button>
+           
+          </div>
+    </nav>
+
+
+    <main>
+       
+	<div>
+		<label for="uf">Estado (UF):</label>
+        	<select id="uf" onchange="carregarMunicipios()">
+           		<option value="">Selecione o estado</option>
+        	</select>
+	</div>
+
+        <div>
+		<label for="municipio">Município:</label>
+       		<select id="municipio" onchange="carregarDistritos()">
+           		<option value="">Selecione o município</option>
+        	</select>
+	</div>
+
+	<div>
+        	<label for="distrito">Distrito:</label>
+        	<select id="distrito">
+           		<option value="">Selecione o distrito</option>
+        	</select>
+	</div>
+
+    </main>
+
+<script>
+  let distritos = [];
+
+  async function carregarUFs() {
+    const res = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome");
+    const estados = await res.json();
+    const selectUF = document.getElementById("uf");
+
+    estados.forEach(uf => {
+      const option = document.createElement("option");
+      option.value = uf.id;
+      option.textContent = `${uf.nome} (${uf.sigla})`;
+      selectUF.appendChild(option);
+    });
+  }
+
+  async function carregarMunicipios() {
+    const ufId = document.getElementById("uf").value;
+    const selectMunicipio = document.getElementById("municipio");
+    selectMunicipio.innerHTML = '<option value="">Selecione o município</option>';
+
+    if (!ufId) return;
+
+    const res = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${ufId}/municipios`);
+    const municipios = await res.json();
+
+    municipios.forEach(m => {
+      const option = document.createElement("option");
+      option.value = m.id;
+      option.textContent = m.nome;
+      selectMunicipio.appendChild(option);
+    });
+  }
+
+  async function carregarDistritos() {
+    const municipioId = document.getElementById("municipio").value;
+    const selectDistrito = document.getElementById("distrito");
+    selectDistrito.innerHTML = '<option value="">Selecione o distrito</option>';
+
+    if (!distritos.length) {
+      const res = await fetch("https://servicodados.ibge.gov.br/api/v1/localidades/distritos");
+      distritos = await res.json();
+    }
+
+    const filtrados = distritos.filter(d => d.municipio.id == municipioId);
+    filtrados.forEach(d => {
+      const option = document.createElement("option");
+      option.value = d.id;
+      option.textContent = d.nome;
+      selectDistrito.appendChild(option);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", carregarUFs);
+</script>
+
+
+    <footer>
+        © INE 5646 - Programação para a web
+    </footer>
+    
+</body>
+</html>
