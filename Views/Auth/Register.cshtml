@@ -1,0 +1,105 @@
+@{
+    ViewData["Title"] = "Cadastro";
+}
+
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f1f1f1;
+    }
+
+    .register-container {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .register-box {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+    }
+
+    .register-box h2 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .register-box label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-weight: bold;
+    }
+
+    .register-box input {
+        width: 100%;
+        padding: 0.7rem;
+        margin-bottom: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .register-box button {
+        width: 100%;
+        padding: 0.8rem;
+        background: #28a745;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .register-box button:hover {
+        background: #218838;
+    }
+
+    #response {
+        margin-top: 1rem;
+        text-align: center;
+        color: red;
+    }
+</style>
+
+<div class="register-container">
+    <div class="register-box">
+        <h2>Cadastro</h2>
+        <form onsubmit="event.preventDefault(); register();">
+            <label for="email">Email:</label>
+            <input type="email" id="email" required />
+
+            <label for="password">Senha:</label>
+            <input type="password" id="password" required />
+
+            <button type="submit">Cadastrar</button>
+        </form>
+        <p id="response"></p>
+    </div>
+</div>
+
+<script>
+    async function register() {
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        const response = await fetch("/auth/register", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email, password })
+        });
+
+        const text = await response.text();
+        document.getElementById("response").innerText = text;
+
+        if (response.ok) {
+            localStorage.setItem("userEmail", email);
+            window.location.href = "/";
+        }
+    }
+</script>

@@ -1,8 +1,15 @@
+using Microsoft.EntityFrameworkCore;
+using ProjetoWeb.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages().AddRazorRuntimeCompilation();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlite("Data Source=users.db"));
+
 
 var app = builder.Build();
 

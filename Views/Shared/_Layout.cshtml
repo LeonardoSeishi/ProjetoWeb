@@ -2,12 +2,44 @@
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Editor de C# Online</title>
     <link rel="stylesheet" href="/css/styles.css"> <!-- Link para o arquivo CSS -->
 </head>
 <body>
+     <header>
+        <nav>
+            <span id="auth-area"></span>
+        </nav>
+    </header>
+
     @RenderBody()
     @await RenderSectionAsync("Scripts", required: false)
+
+    <script>
+        function renderAuthButtons() {
+            const authArea = document.getElementById('auth-area');
+            const userEmail = localStorage.getItem('userEmail');
+
+            if (userEmail) {
+                authArea.innerHTML = `
+                    <span>Olá, ${userEmail}</span>
+                    <button onclick="logout()">Sair</button>
+                `;
+            } else {
+                authArea.innerHTML = `
+                    <a href="/auth/login">Login</a> |
+                    <a href="/auth/register">Cadastro</a>
+                `;
+            }
+        }
+
+        function logout() {
+            localStorage.removeItem('userEmail');
+            location.href = '/auth/login';
+        }
+
+        renderAuthButtons();
+    </script>
 </body>
 </html>

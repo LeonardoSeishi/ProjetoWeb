@@ -41,4 +41,43 @@
     }
 
     await addEvents();
+
+    const userEmail = localStorage.getItem("userEmail");
+
+    async function loadCode() {
+        if (!userEmail) return;
+
+        try {
+            const response = await fetch(`/user/load-code?email=${encodeURIComponent(userEmail)}`);
+            const code = await response.text();
+            if (typeof txtCode !== 'undefined' && code != null && code != undefined && code != '') {
+                txtCode.value = code;
+            }
+        } catch (err) {
+            console.error("Erro ao carregar o código:", err);
+        }
+    }
+
+    async function saveCode() {
+        if (!userEmail || typeof txtCode === 'undefined') return;
+
+        try {
+            await fetch("/user/save-code", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ email: userEmail, code: txtCode.value })
+            });
+            console.log("Código salvo automaticamente");
+        } catch (err) {
+            console.error("Erro ao salvar o código:", err);
+        }
+    }
+
+    // Inicia o carregamento e salvamento periódico
+    window.addEventListener("DOMContentLoaded", () => {
+        saveCode();
+        loadCode();
+        setInterval(saveCode, 5000); // salva a cada 5s
+    });
+
 });
