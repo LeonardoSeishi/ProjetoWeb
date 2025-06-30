@@ -4,6 +4,7 @@
     const btnClear = document.getElementById('clear-btn');
     const txtCode = document.getElementById('csharp-code');
     const txtResult = document.getElementById('output-content'); 
+    const userEmail = localStorage.getItem("userEmail");
 
     async function onRunCode(){
         txtCode.disabled = true;
@@ -40,19 +41,13 @@
         btnClear.addEventListener('click', clearCode);
     }
 
-    await addEvents();
-
-    const userEmail = localStorage.getItem("userEmail");
-
     async function loadCode() {
         if (!userEmail) return;
 
         try {
             const response = await fetch(`/user/load-code?email=${encodeURIComponent(userEmail)}`);
             const code = await response.text();
-            if (typeof txtCode !== 'undefined' && code != null && code != undefined && code != '') {
-                txtCode.value = code;
-            }
+            if (typeof txtCode !== 'undefined' && code != null && code != undefined && code != '') txtCode.value = code;
         } catch (err) {
             console.error("Erro ao carregar o código:", err);
         }
@@ -74,8 +69,8 @@
     }
 
     // Inicia o carregamento e salvamento periódico
-    window.addEventListener("DOMContentLoaded", () => {
-        saveCode();
+    window.addEventListener("DOMContentLoaded", async () => {
+        await addEvents();
         loadCode();
         setInterval(saveCode, 5000); // salva a cada 5s
     });
